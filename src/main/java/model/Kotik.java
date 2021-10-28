@@ -11,8 +11,17 @@ public class Kotik {
     private static int appetite = 20;
     private int eating = food - appetite;
     public int increaseFood = 50;
-    private static String meow;
+    String meow;
 
+
+
+    public static int getObjectCount() {
+        return objectCount;
+    }
+
+    public static void setObjectCount(int objectCount) {
+        Kotik.objectCount = objectCount;
+    }
 
     public String getName() {
         return name;
@@ -20,14 +29,6 @@ public class Kotik {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getSatiety() {
-        return satiety;
-    }
-
-    public void setSatiety(int satiety) {
-        this.satiety = satiety;
     }
 
     public void setHunger(boolean hunger) {
@@ -42,18 +43,13 @@ public class Kotik {
         Kotik.appetite = appetite;
     }
 
-    public static String getMeow() {
-        return meow;
-    }
 
-    public static void setMeow(String meow) {
-        Kotik.meow = meow;
-    }
 
-    public Kotik(String name, int satiety, boolean hunger) {
+    public Kotik(String name, int satiety, boolean hunger, String meow) {
         this.name = name;
         this.satiety = satiety;
         this.hunger = hunger;
+        this.meow = meow;
     }
     public static int counterObj() {
         return objectCount++;
@@ -69,6 +65,13 @@ public class Kotik {
         System.out.println("побегал");
         return true;
     }
+
+    public static boolean equals(Kotik kotik, Kotik kotik1) {
+        System.out.println("Сравниванием мяукание котов");
+        System.out.println(kotik.meow == kotik1.meow);
+
+        return true;
+        }
     ;
 
     ;
@@ -90,7 +93,7 @@ public class Kotik {
     ;
     public void liveAnotherDay() {
         Random random = new Random();
-        Kotik kotik = new Kotik("Boris", 40, true);
+        Kotik kotik = new Kotik("Boris", 40, true, "Meeeeeeeeeooow");
         for (int i = 0; i < 24; i++) {
             int num = random.nextInt(5);
             switch (num) {
