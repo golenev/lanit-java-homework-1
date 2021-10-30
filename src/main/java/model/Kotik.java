@@ -5,14 +5,11 @@ import java.util.Random;
 public class Kotik {
     private static int objectCount = 1;
     private String name;
-    private int satiety;
-    private boolean hunger;
-    private static int food = 100;
+    private static boolean hungryKot;
+    private static int food = 3;
     private static int appetite = 20;
-    private int eating = food - appetite;
-    public int increaseFood = 50;
+    private static int foodAddition = 30;
     String meow;
-
 
 
     public static int getObjectCount() {
@@ -31,9 +28,6 @@ public class Kotik {
         this.name = name;
     }
 
-    public void setHunger(boolean hunger) {
-        this.hunger = hunger;
-    }
 
     public static int getAppetite() {
         return appetite;
@@ -44,78 +38,94 @@ public class Kotik {
     }
 
 
-
-    public Kotik(String name, int satiety, boolean hunger, String meow) {
+    public Kotik(String name, int food, String meow) {
         this.name = name;
-        this.satiety = satiety;
-        this.hunger = hunger;
+        this.food = food;
         this.meow = meow;
     }
+
     public static int counterObj() {
         return objectCount++;
     }
 
-    public boolean isHunger() {
-        if (satiety <= 50) {
-            System.out.println("Еда кончилась");
+    private boolean isHungryKot() {
+
+        if (food <= 0) {
+            System.out.println("Кот голоден! Корми его! Он больше не будет ничего делать");
+            hungryKot = true;
+            eat();
+        } else {
+            System.out.print("Кот не голоден. ");
+            hungryKot = false;
         }
-        return true;
+        return hungryKot;
     }
-    public boolean run() {
-        System.out.println("побегал");
-        return true;
+
+    public void sleep() {
+        food--;
+        System.out.println("Кот уснул, " + " еды осталось " + food);
+    }
+
+    public void play() {
+        food--;
+        System.out.println("Кот поиграл, " + "еды осталось " + food);
+    }
+
+    public void chaseMouse() {
+        food--;
+        System.out.println("Кот поймал мышь, " + "еды осталось " + food);
+    }
+
+    public void say() {
+        food--;
+        System.out.println("Мяу, " + "еды осталось " + food);
+    }
+
+    public void eat() {
+        food = food + foodAddition;
+        System.out.println("Раб покормил кота, теперь еды стало " + food);
     }
 
     public static boolean equals(Kotik kotik, Kotik kotik1) {
         System.out.println("Сравниванием мяукание котов");
-        System.out.println(kotik.meow == kotik1.meow);
-
-        return true;
+        if (kotik.meow.equals(kotik1.meow)) {
+            System.out.println("мяукают одинакового");
+        } else {
+            System.out.println("Они мяукают по-разному");
         }
-    ;
+        return true;
+    }
 
-    ;
-    public boolean sleep() {
-        System.out.println("поспал");
-        return true;
-    }
-    ;
-    public boolean eat() {
-        System.out.println("Поел, еды осталось " + (food -= appetite));
-        return true;
-    }
-    ;
-    public boolean play() {
-
-        System.out.println("поиграл");
-        return true;
-    }
-    ;
     public void liveAnotherDay() {
         Random random = new Random();
-        Kotik kotik = new Kotik("Boris", 40, true, "Meeeeeeeeeooow");
-        for (int i = 0; i < 24; i++) {
-            int num = random.nextInt(5);
+        Kotik kotik = new Kotik("Boris", 15, "Meeeeeeeeeooow");
+        for (int i = 0; i < 26; i++) {
+            int num = random.nextInt(4);
             switch (num) {
                 case 0:
-                    kotik.run();
+                    if (isHungryKot()) ;
+                    else
+                        play();
                     break;
                 case 1:
-                    kotik.play();
+                    if (isHungryKot()) ;
+                    else
+                        say();
                     break;
                 case 2:
-                    kotik.eat();
-
-                    if (food <= 0) {
-                        food += increaseFood;
-                        System.out.println("Еда кончилась, положили добавку");
-
-                    }
-
+                    if (isHungryKot()) ;
+                    else
+                        sleep();
                     break;
-
                 case 3:
-                    kotik.sleep();
+                    if (isHungryKot()) ;
+                    else
+                        chaseMouse();
+                    break;
+                case 4:
+                    if (isHungryKot()) ;
+                    else
+                        eat();
                     break;
             }
         }
