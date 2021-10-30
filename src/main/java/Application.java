@@ -1,4 +1,4 @@
-package model;
+import model.Kotik;
 
 import java.lang.annotation.ElementType;
 import java.util.ArrayList;
